@@ -48,6 +48,11 @@ disque physique, raid1, LVM
 
 Q.2.3.3 Ajouter un nouveau disque de 8,00 Gio au serveur et réparer le volume RAID
 
+Disque de 8go ajouté Nom sdb
+
+![image](https://github.com/user-attachments/assets/f1005942-4136-4f66-8ba1-a33df479b4a2)
+
+
 Q.2.3.4 Ajouter un nouveau volume logique LVM de 2 Gio qui servira à héberger des sauvegardes. Ce volume doit être monté automatiquement à chaque démarrage dans l'emplacement par défaut : /var/lib/bareos/storage.
 
 Q.2.3.5 Combien d'espace disponible reste-t-il dans le groupe de volume ?
@@ -58,12 +63,26 @@ Les composants bareos-dir, bareos-sd et bareos-fd sont installés avec une confi
 
 Q.2.4.1 Expliquer succinctement les rôles respectifs des 3 composants bareos installés sur la VM.
 
+bareos-dir (Director) : Contrôle et coordonne l'ensemble des opérations de sauvegarde et de restauration. Il prend les décisions sur quoi sauvegarder, quand, et où stocker les données.
+bareos-sd (Storage Daemon) : Gère le stockage physique des données de sauvegarde. Il écrit et lit les données sur les supports de stockage.
+bareos-fd (File Daemon) : Agent client installé sur chaque machine à sauvegarder. Il est chargé d'accéder aux fichiers locaux sur la machine cliente, de les lire pour les sauvegardes et de les écrire lors des restaurations.
+
 Partie 5 : Filtrage et analyse réseau
 Q.2.5.1 Quelles sont actuellement les règles appliquées sur Netfilter ?
 
+![image](https://github.com/user-attachments/assets/fd102eeb-2608-4e1b-9f6c-384113c42d6b)
+
 Q.2.5.2 Quels types de communications sont autorisées ?
 
+![image](https://github.com/user-attachments/assets/8679a84a-41bc-446c-a67f-4e3a5727b15d)
+
+tcp port 22
+ICMP (IPv4)
+ICMP (IPv6)
+
 Q.2.5.3 Quels types sont interdit ?
+
+tous les paquets entrants qui ne correspondent à aucune règle de la chaîne seront supprimés
 
 Q.2.5.4 Sur nftables, ajouter les règles nécessaires pour autoriser bareos à communiquer avec les clients bareos potentiellement présents sur l'ensemble des machines du réseau local sur lequel se trouve le serveur.
 
